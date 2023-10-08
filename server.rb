@@ -87,7 +87,8 @@ end
 
 class Server < Sinatra::Application
   get '/' do
-    html = "<style> h1 { margin-top:2em } </style>"
+    html = "<style> body { background: black; color: darkgray; } </style>"
+    html += "<style> h1 { margin-top:2em } </style>"
     html += "<center><h1>#{DDate.new.to_s}</h1></center>"
 
     html
