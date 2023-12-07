@@ -87,9 +87,25 @@ end
 
 class Server < Sinatra::Application
   get '/' do
-    html = "<style> body { background: black; color: darkgray; } </style>"
+    html = "<html>"
+    html += "<head>"
+    html += "<title>Discordian calendar - ddate.site</title>"
+    html += "<meta property='og:type' content='website'>"
+    html += "<meta property='og:type' content='website'>"
+    html += "<meta property='og:title' content='Discordian calendar - ddate.site'>"
+    html += "<style> body { background: #f1e18d; color: black; } </style>"
     html += "<style> h1 { margin-top:2em } </style>"
-    html += "<center><h1>#{DDate.new.to_s}</h1></center>"
+    html += "<style> .info { margin-top:2em } </style>"
+    html += "</head>"
+    html += "</body>"
+    html += "<center>"
+    html += "<h1>#{DDate.new.to_s}</h1>"
+    html += "<p class='info'>"
+    html += "The Discordian or Erisian calendar is an alternative calendar used by some adherents of Discordianism.</br>It is specified on page 00034 of the <a href='https://principiadiscordia.com'>Principia Discordia</a>."
+    html += "</p>"
+    html += "</center>"
+    html += "</body>"
+    html += "</html>"
 
     html
   end
