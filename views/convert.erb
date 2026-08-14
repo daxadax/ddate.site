@@ -1,0 +1,154 @@
+<header class="hero hero--convert">
+  <p class="hero-kicker"><a class="back-link" href="/">ddate.site</a></p>
+  <h1 class="converter-page-title">Perpetual Date Converter</h1>
+  <p class="converter-subtitle" id="converter-subtitle">
+    <%= @direction == 'to_podge' ? 'Greyface to Erisian' : 'Erisian to Greyface' %>
+  </p>
+</header>
+
+<section class="converter" aria-labelledby="converter-title">
+  <h2 id="converter-title" class="visually-hidden">Date conversion</h2>
+
+  <form method="get" action="/convert" class="chao-form chao-form--<%= @direction %>" id="chao-form">
+    <fieldset class="direction-toggle">
+      <legend class="visually-hidden">Conversion direction</legend>
+      <label class="direction-option">
+        <input type="radio" name="direction" value="to_hodge"<%= ' checked' if @direction == 'to_hodge' %>>
+        <span>Erisian &rarr; Greyface</span>
+      </label>
+      <label class="direction-option">
+        <input type="radio" name="direction" value="to_podge"<%= ' checked' if @direction == 'to_podge' %>>
+        <span>Greyface &rarr; Erisian</span>
+      </label>
+    </fieldset>
+
+    <div class="chao-stage">
+      <div class="realm realm-podge<%= ' realm-podge--revealed' if @direction == 'to_podge' && (@conversion || @conversion_error) %>">
+        <div class="realm-label">
+          <span class="realm-name">The Podge</span>
+          <span class="realm-tag">Eristic · Apparent Disorder</span>
+        </div>
+
+        <div class="podge-input panel-input">
+          <fieldset class="season-field">
+            <legend>Season</legend>
+            <div class="season-pentagon" role="radiogroup" aria-label="Discordian season">
+              <% @months.each_with_index do |name, index| %>
+                <label class="season-node season-<%= index %>" data-season="<%= name %>">
+                  <input type="radio" name="month" value="<%= name %>"<%= ' checked' if @month == name %>>
+                  <span><%= name %></span>
+                </label>
+              <% end %>
+            </div>
+          </fieldset>
+
+          <div class="day-field">
+            <label for="day">Day of Season</label>
+            <div class="day-readout">
+              <span class="day-number" id="day-number"><%= @day %></span>
+              <span class="weekday-name" id="weekday-name"><%= @preview_weekday %></span>
+            </div>
+            <input id="day" name="day" type="range" min="1" max="73" value="<%= @day %>" class="day-slider">
+            <div class="day-ticks" aria-hidden="true">
+              <% 5.times do %>
+                <span></span>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="yold-field">
+            <label for="yold">YOLD</label>
+            <input id="yold" name="yold" type="number" min="1167" value="<%= @yold %>">
+          </div>
+
+          <label class="tibs-toggle">
+            <input id="st_tibs" name="st_tibs" type="checkbox" value="1"<%= ' checked' if @st_tibs %>>
+            <span class="tibs-face">St.&nbsp;Tib&rsquo;s Day</span>
+            <span class="tibs-hint">the day between Confusion&nbsp;59 and 60</span>
+          </label>
+        </div>
+
+        <div class="podge-output panel-output">
+          <% if @conversion %>
+            <div class="revelation">
+              <span class="revelation-title">Revelation from Eris</span>
+              <span class="revelation-body"><%= @conversion.discordian_s %></span>
+              <span class="revelation-footer">Golden Apple Dispatch · POEE</span>
+            </div>
+          <% elsif @conversion_error %>
+            <div class="revelation revelation--rejected">
+              <span class="revelation-title">Chao Rejection Notice</span>
+              <span class="revelation-body"><%= @conversion_error %></span>
+              <span class="revelation-footer">The apple refuses to ripen</span>
+            </div>
+          <% else %>
+            <div class="revelation revelation--waiting">
+              <span class="revelation-title">Awaiting Revelation</span>
+              <span class="revelation-body">Submit a Greyface date</br>to toss the golden apple</span>
+              <span class="revelation-footer">Temple of Eris · Department of Unreason</span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="convert-portal" aria-hidden="true">
+        <span class="convert-glyph" id="convert-glyph">
+          <span class="convert-glyph-wobble"><%= @direction == 'to_podge' ? '🌭' : '🍎' %></span>
+        </span>
+        <div class="portal-arrow" id="portal-arrow"><%= @direction == 'to_podge' ? '⇠' : '⇢' %></div>
+      </div>
+
+      <div class="realm realm-hodge<%= ' realm-hodge--revealed' if @direction == 'to_hodge' && (@conversion || @conversion_error) %>">
+        <div class="realm-label">
+          <span class="realm-name">The Hodge</span>
+          <span class="realm-tag">Aneristic · Apparent Order</span>
+        </div>
+
+        <div class="hodge-input panel-input">
+          <div class="greyface-input">
+            <label for="gf_date">Linear Time Coordinates</label>
+            <input id="gf_date" name="gf_date" type="date" value="<%= @gf_date %>">
+            <p class="input-hint">Curse of Greyface standard calendar</p>
+          </div>
+        </div>
+
+        <div class="hodge-output panel-output">
+          <% if @conversion %>
+            <div class="stamp">
+              <span class="stamp-title">Certified Greyface Date</span>
+              <span class="stamp-body"><%= @conversion.gregorian_s %></span>
+              <span class="stamp-footer">Form 23-B · Bureau of Linear Time</span>
+            </div>
+          <% elsif @conversion_error %>
+            <div class="stamp stamp--rejected">
+              <span class="stamp-title">Chao Rejection Notice</span>
+              <span class="stamp-body"><%= @conversion_error %></span>
+              <span class="stamp-footer">Try again with less seriousness</span>
+            </div>
+          <% else %>
+            <div class="stamp stamp--waiting">
+              <span class="stamp-title">Awaiting Transmission</span>
+              <span class="stamp-body">Select a Discordian date and sate your hunger for order</span>
+              <span class="stamp-footer">Curse of Greyface Compliance Desk</span>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="grid-overlay" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <button type="submit" name="consult" value="1" class="consult-btn">Convert</button>
+  </form>
+</section>
+
+<script>
+  window.DDATE = {
+    months: <%= @months.to_json %>,
+    weekdays: <%= @weekdays.to_json %>,
+    direction: <%= @direction.to_json %>,
+    month: <%= @month.to_json %>,
+    day: <%= @day.to_i %>,
+    stTibs: <%= @st_tibs ? 'true' : 'false' %>
+  };
+</script>
