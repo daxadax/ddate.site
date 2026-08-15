@@ -35,17 +35,89 @@ body {
   text-align: center;
 }
 
-a { color: #5a1a00; }
+.footer__donations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
 
-.fnord {
-  text-align: center;
+.footer__crypto-method {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.footer__crypto-method:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.footer__crypto-method--copied {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.footer__crypto-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.footer__crypto-address {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  line-height: 1.3;
+  text-align: left;
+  word-break: break-all;
+}
+
+.fnord-link {
+  display: inline-block;
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  opacity: 0.1;
-  pointer-events: none;
-  user-select: none;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.08;
 }
+
+.fnord-link:hover,
+.fnord-link:focus {
+  opacity: 0.35;
+}
+
+.fnord-page {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+  text-align: center;
+}
+
+.fnord-gospel {
+  margin: 2rem 0 0;
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.fnord-donations {
+  margin-top: 3rem;
+}
+
+.fnord-donations-intro {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+a { color: #5a1a00; }
 
 .hero {
   text-align: center;

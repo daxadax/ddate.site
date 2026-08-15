@@ -3,8 +3,25 @@ require_relative 'ddate'
 class Server < Sinatra::Application
   WEEKDAYS = ["Setting Orange", 'Sweetmorn', 'Boomtime', 'Pungenday', 'Prickle Prickle'].freeze
 
+  DONATIONS = [
+    {
+      name: 'Bitcoin',
+      icon: 'btc.png',
+      address: ''
+    },
+    {
+      name: 'Ethereum',
+      icon: 'eth.png',
+      address: ''
+    }
+  ].freeze
+
   configure do
     set :erb, layout: :layout
+  end
+
+  before do
+    @donations = DONATIONS if request.path_info == '/fnord'
   end
 
   helpers do
@@ -59,5 +76,11 @@ class Server < Sinatra::Application
     load_converter_vars!
     perform_conversion!
     erb :convert
+  end
+
+  get '/fnord' do
+    @page_title = 'fnord — ddate.site'
+    @footer_js = true
+    erb :fnord
   end
 end

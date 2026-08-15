@@ -1,0 +1,8 @@
+<div class="footer__donations">
+  <% @donations.each do |coin| %>
+    <button type="button" class="footer__crypto-method" data-address="<%= coin[:address] %>" title="Click to copy">
+      <img class="footer__crypto-icon" src="/assets/crypto/<%= coin[:icon] %>" alt="<%= coin[:name] %>">
+      <span class="footer__crypto-address"><%= coin[:address] %></span>
+    </button>
+  <% end %>
+</div>
