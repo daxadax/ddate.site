@@ -4,8 +4,10 @@
     If you bring forth the fnord that is within you, what you bring forth will save you;
     if you fail to bring forth the fnord that is within you, what you fail to bring forth will destroy you.
   </blockquote>
-  <section class="fnord-donations">
-    <p class="fnord-donations-intro">If you want to bring forth some crypto to help cover server costs, flax me.</p>
-    <%= erb :'_donations', layout: false %>
-  </section>
+  <% if @donations.any? %>
+    <section class="fnord-donations">
+      <p class="fnord-donations-intro">If you want to bring forth some crypto to help cover server costs, flax me.</p>
+      <%= erb :'_donations', layout: false %>
+    </section>
+  <% end %>
 </article>

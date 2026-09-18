@@ -3,28 +3,25 @@ require_relative 'ddate'
 class Server < Sinatra::Application
   WEEKDAYS = ["Setting Orange", 'Sweetmorn', 'Boomtime', 'Pungenday', 'Prickle Prickle'].freeze
 
-  DONATIONS = [
-    {
-      name: 'Bitcoin',
-      icon: 'btc.png',
-      address: ''
-    },
-    {
-      name: 'Ethereum',
-      icon: 'eth.png',
-      address: ''
-    }
-  ].freeze
-
   configure do
     set :erb, layout: :layout
   end
 
   before do
-    @donations = DONATIONS if request.path_info == '/fnord'
+    @donations = donations if request.path_info == '/fnord'
   end
 
   helpers do
+    def donations
+      [].tap do |list|
+        btc = ENV['BTC_DONATION_ADDRESS'].to_s.strip
+        list << { name: 'Bitcoin', icon: 'btc.png', address: btc } unless btc.empty?
+
+        eth = ENV['ETH_DONATION_ADDRESS'].to_s.strip
+        list << { name: 'Ethereum', icon: 'eth.png', address: eth } unless eth.empty?
+      end
+    end
+
     def preview_weekday(month, day, st_tibs)
       return "St. Tib's Day" if st_tibs
 
